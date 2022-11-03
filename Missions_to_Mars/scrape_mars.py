@@ -61,7 +61,7 @@ def scrape():
         browser.visit('https://marshemispheres.com/' + i)
         soup = bs(browser.html, 'html.parser')
         hemisphere_dict["title"] = soup.find(class_='title').text.strip()
-        hemisphere_dict["img_url"] = soup.find(class_='downloads').find('a')['href']
+        hemisphere_dict["img_url"] = 'https://marshemispheres.com/' + soup.find(class_='downloads').find('a')['href']
         hemisphere_image_urls.append(hemisphere_dict)
 
     browser.quit()
