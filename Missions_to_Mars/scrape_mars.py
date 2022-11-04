@@ -4,15 +4,18 @@ from bs4 import BeautifulSoup as bs
 from webdriver_manager.chrome import ChromeDriverManager
 
 import pandas as pd
+import time
 
 def scrape():
     
     # Open the browser using ChromeDriverManager and splinter
     executable_path = {'executable_path': ChromeDriverManager().install()}
     browser = Browser('chrome', **executable_path, headless=False)
+    time.sleep(.5)
 
     # Visit the Mars News Site
     browser.visit('https://redplanetscience.com')
+    time.sleep(.5)
 
     # Scrape the title and preview text of the first article on the Mars landing page
     soup = bs(browser.html, 'html.parser')
@@ -23,6 +26,7 @@ def scrape():
 
     # Visit the Featured Space Image Site
     browser.visit('https://spaceimages-mars.com')
+    time.sleep(.5)
 
     # Scrape the Featured Space Image
     soup = bs(browser.html, 'html.parser')
@@ -42,6 +46,7 @@ def scrape():
 
     # Visit the Astrogeology site for hemisphere images
     browser.visit('https://marshemispheres.com/')
+    time.sleep(.5)
 
     soup = bs(browser.html, 'html.parser')
 
@@ -63,6 +68,7 @@ def scrape():
         hemisphere_dict["title"] = soup.find(class_='title').text.strip()
         hemisphere_dict["img_url"] = 'https://marshemispheres.com/' + soup.find(class_='downloads').find('a')['href']
         hemisphere_image_urls.append(hemisphere_dict)
+        time.sleep(.5)
 
     browser.quit()
 
